@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>European Frontier AI Safety Directory</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f7f7f4;--card:#fff;--tx:#1b1b1a;--mu:#6a6a66;--bd:#e2e2dc;--ac:#1f4fd8;--chip:#eef1fb}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141415;--card:#1d1d1f;--tx:#ececea;--mu:#9a9a95;--bd:#2f2f32;--ac:#8aa8ff;--chip:#232a40}}
+:root[data-theme="dark"]{--bg:#141415;--card:#1d1d1f;--tx:#ececea;--mu:#9a9a95;--bd:#2f2f32;--ac:#8aa8ff;--chip:#232a40}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:0 auto;padding:32px 18px 48px}
+h1{font-size:clamp(26px,5vw,38px);margin:0 0 8px;letter-spacing:-.02em}
+.stats{color:var(--ac);font-weight:600;margin:0 0 10px}.lead{color:var(--mu);max-width:700px;margin:0 0 24px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+input,select{font:inherit;padding:9px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);min-width:0}
+input{flex:1 1 200px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{font:inherit;font-size:14px;padding:5px 12px;border:1px solid var(--bd);border-radius:99px;background:var(--card);color:var(--tx);cursor:pointer}
+.chip.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.count{color:var(--mu);font-size:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px}
+.c b{display:block;font-size:17px}.c .m{color:var(--mu);font-size:14px;margin:2px 0 8px}
+.t{display:inline-block;font-size:12px;background:var(--chip);color:var(--ac);padding:2px 8px;border-radius:99px;margin:0 4px 4px 0}
+footer{margin-top:32px;color:var(--mu);font-size:13px;border-top:1px solid var(--bd);padding-top:14px}footer a{color:var(--ac)}
+</style></head><body><main>
+<h1>European Frontier AI Safety Directory</h1>
+<p class="stats" id="st"></p>
+<p class="lead">A public-source directory of researchers, policymakers and practitioners working on frontier AI safety, evaluation and governance, with a focus on the European ecosystem.</p>
+<div class="bar"><input id="q" type="search" placeholder="Search by name…"><select id="co"></select><select id="ty"></select></div>
+<div class="chips" id="ch"></div><div class="count" id="n"></div><div class="grid" id="g"></div>
+<footer>Names and countries: <a href="https://digital-strategy.ec.europa.eu/en/policies/ai-scientific-panel">European Commission, AI Act Scientific Panel</a> (list published 1 June 2026, checked 8 Oct 2026). Research-area and expert-type tags are editorial classifications, not the individuals' own descriptions, and may be incomplete. Not affiliated with the Commission.</footer>
+</main><script>
+const A={E:"AI evaluations",A:"Alignment",S:"AI security",G:"AI governance",F:"Frontier AI policy",L:"AI law",T:"Technical safety",R:"Risk assessment"};
+const Y={a:"Academic",t:"Technical practitioner",g:"Governance/policy"};
+const D=`Alessandro Abate|Italy|T|a
+Alexandra Abbas|Hungary|T|a
+Sahar Abdelnabi|Egypt|ST|a
+Markus Anderljung|Sweden|GF|g
+Maksym Andriushchenko|Ukraine|TS|a
+Yoshua Bengio|Canada|AT|a
+Veselka Boeva|Bulgaria|T|a
+Miles Brundage|United States|FG|g
+Ivana Budinská|Slovakia|T|a
+Céline Castets-Renard|France|LG|a
+Raja Chatila|France|TG|a
+Michael Chen|United States|ET|t
+Sebastian Cygert|Poland|T|a
+Tom David|France|TE|t
+Maarten de Rijke|Netherlands|T|a
+Javier Del Ser|Spain|T|a
+Michèle Finck|Luxembourg|LG|a
+Mario Fritz|Germany|TS|a
+Adam Gleave|United Kingdom|EST|t
+Asunción Gómez-Pérez|Spain|T|a
+Jean Gové|Malta|T|a
+Jakub Growiec|Poland|R|a
+Fredrik Heintz|Sweden|T|a
+Maarten Herbosch|Belgium|L|a
+José Hernández-Orallo|Spain|E|a
+Jacob Hilton|United Kingdom|AT|t
+Marius Hobbhahn|Germany|ET|t
+Zhijing Jin|China|T|a
+Janika Leoste|Estonia|G|a
+Vincent Lenders|Switzerland|S|a
+Kamilė Lukošiūtė|Lithuania|T|a
+Merja Mattila|Finland|T|a
+Mantas Mazeika|Lithuania|T|t
+Charalambos Menelaou|Cyprus|T|a
+Nicolas Moës|Belgium|GF|g
+Halldóra Mogensen|Iceland|G|g
+Haralambos Mouratidis|Greece|SR|a
+Julia Mykhailiuk|Norway|T|a
+Cassidy Nelson|Australia|R|t
+Anastasija Nikiforova|Latvia|G|a
+Jana Nowaková|Czechia|T|a
+Seán Ó hÉigeartaigh|Ireland|FG|a
+Lorenzo Pacchiardi|Italy|E|a
+Daniel Paleka|Croatia|TE|a
+Jassi Pannu|Canada|R|a
+Walter Quattrociocchi|Italy|R|a
+Roxana Radu|Romania|G|a
+Dan Saattrup Smart|Denmark|T|t
+Matthias Samwald|Austria|TER|a
+Nandi Schoots|Netherlands|T|a
+Judith Simon|Germany|G|a
+Charlotte Stix|Austria|GF|g
+Emilija Stojmenova Duh|Slovenia|G|g
+Karl Tuyls|Belgium|T|a
+Claudio Mayrink Verdun|Portugal|T|a
+Bianca Vieru|Romania|T|t
+Katarzyna Wac|Poland|R|a
+Hjalmar Wijk|Sweden|ET|t
+Anna Katariina Wisakanto|Finland|R|a
+Ivan Zelinka|Czechia|T|a`.split("\n").map(l=>{const[n,c,a,t]=l.split("|");return{n,c,a:[...a],t}});
+const $=id=>document.getElementById(id);let act=new Set();
+const cs=[...new Set(D.map(d=>d.c))].sort();
+$("st").textContent=`${D.length} experts · ${cs.length} countries · ${Object.keys(A).length} research areas`;
+$("co").innerHTML='<option value="">All countries</option>'+cs.map(c=>`<option>${c}</option>`).join("");
+$("ty").innerHTML='<option value="">All expert types</option>'+Object.entries(Y).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+$("ch").innerHTML=Object.entries(A).map(([k,v])=>`<button class="chip" data-k="${k}">${v}</button>`).join("");
+$("ch").onclick=e=>{const k=e.target.dataset.k;if(!k)return;act.has(k)?act.delete(k):act.add(k);e.target.classList.toggle("on");r()};
+["q","co","ty"].forEach(i=>$(i).oninput=r);
+function r(){const q=$("q").value.toLowerCase(),c=$("co").value,t=$("ty").value;
+const f=D.filter(d=>d.n.toLowerCase().includes(q)&&(!c||d.c==c)&&(!t||d.t==t)&&[...act].every(k=>d.a.includes(k)));
+$("n").textContent=`${f.length} of ${D.length} shown`;
+$("g").innerHTML=f.map(d=>`<div class="c"><b>${d.n}</b><div class="m">${d.c} · ${Y[d.t]}</div>${d.a.map(k=>`<span class="t">${A[k]}</span>`).join("")}</div>`).join("")||'<p class="count">No matches.</p>'}
+r();
+</script></body></html>
