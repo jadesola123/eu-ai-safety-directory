@@ -1,2 +1,3 @@
 # European-Frontier-AI-Safety-Directory
 A public-source directory of researchers, policymakers and practitioners working on frontier AI safety, evaluation and governance, with a focus on the European ecosystem.
+I compiled the dataset from the European Commission's AI Act Scientific Panel list, checked names and countries against the official source, and added the 10 members that were missing from my initial data. I then classified each expert by research area (AI evaluations, alignment, AI security, AI governance, frontier AI policy, AI law, technical safety, risk assessment) and expert type, and published the result as a searchable, mobile-friendly web page. The page credits its source and states that the tags are editorial classifications.
